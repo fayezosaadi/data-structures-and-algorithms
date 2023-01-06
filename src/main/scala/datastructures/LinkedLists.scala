@@ -36,6 +36,8 @@ abstract class LinkedList[+A] {
   @targetName("appendToTail")
   def ++[B >: A](list: LinkedList[B]): LinkedList[B]
 
+  def delete[B >: A](element: B): LinkedList[B]
+
 }
 
 case object Empty extends LinkedList[Nothing] {
@@ -49,6 +51,8 @@ case object Empty extends LinkedList[Nothing] {
 
   @targetName("appendToTail")
   override def ++[B >: Nothing](list: LinkedList[B]): LinkedList[B] = list
+
+  def delete[A >: Nothing](element: A): Nothing = throw new NoSuchElementException
 }
 
 case class Cons[+A](h: A, t: LinkedList[A]) extends LinkedList[A] {
@@ -58,10 +62,12 @@ case class Cons[+A](h: A, t: LinkedList[A]) extends LinkedList[A] {
 
   def isEmpty: Boolean = false
 
-  def add[B >: A](element: B): LinkedList[B] = Cons(element, this)
+  def add[B >: A](node: B): LinkedList[B] = Cons(node, this)
 
   @targetName("appendToTail")
-  def ++[B >: A](node: LinkedList[B]): LinkedList[B] = Cons(h, t ++ node)
+  def ++[B >: A](node: LinkedList[B]): LinkedList[B] = Cons(head, tail ++ node)
+
+  def delete[B >: A](node: B): LinkedList[B] = if (node == head) tail else Cons(head, tail.delete(node))
 
 }
 
