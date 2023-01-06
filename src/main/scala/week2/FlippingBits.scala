@@ -2,6 +2,7 @@ package com.github.fayezosaadi.scala.algorithms
 package week2
 
 import javax.xml.transform.Result
+import scala.annotation.tailrec
 
 object FlippingBits extends App {
 
@@ -18,9 +19,10 @@ object FlippingBits extends App {
 
     def flipBit(i: Int): Int = if (i == 1) 0 else 1
 
+    @tailrec
     def flippingBitsAux(i: Int, result: Long): Long = if (i >= 32) result else flippingBitsAux(i + 1, result + (flipBit(getBit(i)) * math.pow(2, i).toLong))
 
     flippingBitsAux(0, 0)
   }
-  
+
 }
