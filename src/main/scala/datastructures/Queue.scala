@@ -2,7 +2,7 @@ package datastructures
 
 abstract class Queue[+A] {
 
-  // last in first out (FIFO)
+  // first in first out (FIFO)
 
   /**
    *
